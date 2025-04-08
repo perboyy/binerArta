@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Konversi Desimal ke Biner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+            background-color: #e0f0ff;
+            color: #003366;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #004080;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #66a3ff;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus {
+            border-color: #3399ff;
+            box-shadow: 0 0 5px #3399ff;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3399ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #267acc;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        #hasil {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #00264d;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #hasil.tampil {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <h1>Konversi Bilangan Desimal ke Biner</h1>
+    <input type="number" id="inputDesimal" placeholder="Masukkan bilangan desimal">
+    <button onclick="konversiKeBiner()">Konversi</button>
+    <div id="hasil"></div>
+
+    <script>
+        function desimalKeBiner(bilangan) {
+            if (bilangan === 0) return "0";
+            let biner = "";
+            while (bilangan > 0) {
+                let sisa = bilangan % 2;
+                biner = sisa + biner;
+                bilangan = Math.floor(bilangan / 2);
+            }
+            return biner;
+        }
+
+        function konversiKeBiner() {
+            const input = document.getElementById("inputDesimal").value;
+            const angka = parseInt(input);
+            const hasilDiv = document.getElementById("hasil");
+
+            if (isNaN(angka) || angka < 0) {
+                hasilDiv.innerText = "Masukkan angka desimal yang valid!";
+            } else {
+                const hasil = desimalKeBiner(angka);
+                hasilDiv.innerText = `Bilangan biner dari ${angka} adalah: ${hasil}`;
+            }
+
+            // Tambah class untuk efek animasi
+            hasilDiv.classList.remove("tampil");
+            void hasilDiv.offsetWidth; // Trick untuk restart animasi
+            hasilDiv.classList.add("tampil");
+        }
+    </script>
+</body>
+</html>
